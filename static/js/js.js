@@ -1,8 +1,7 @@
 //Returns a random photo URL from NASA Mars Rover Photos API
-const marsPhoto = () => {
+const marsPhoto = sol => {
     const request = new XMLHttpRequest();
-    const randDay = Math.floor(Math.random() * 2667);
-    const requestURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${randDay}&api_key=fdQxe7OGPA0uiJdQ1f8upc2o1YOsvZYzKuhFBL0t`;
+    const requestURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${sol}&api_key=fdQxe7OGPA0uiJdQ1f8upc2o1YOsvZYzKuhFBL0t`;
     request.open('GET', requestURL);
     request.responseType = 'json';
     request.send();
@@ -15,12 +14,10 @@ const marsPhoto = () => {
         console.log(randPhoto['img_src']);
     }
 }
-marsPhoto();
 
-const marsWeather = () => {
+const marsWeather = sol => {
     const request = new XMLHttpRequest();
-    const randDay = Math.floor(Math.random() * 2667);
-    const requestURL = `https://api.maas2.apollorion.com/${randDay}`;
+    const requestURL = `https://api.maas2.apollorion.com/${sol}`;
     request.open('GET', requestURL);
     request.responseType = 'json';
     request.send();
@@ -32,4 +29,11 @@ const marsWeather = () => {
     }
 }
 
-marsWeather();
+const callAPI = () => {
+    const randDay = Math.floor(Math.random() * 2667);
+    marsWeather(randDay);
+    marsPhoto(randDay);
+
+}
+
+callAPI();
