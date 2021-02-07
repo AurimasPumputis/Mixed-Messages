@@ -9,7 +9,7 @@ const marsPhoto = sol => {
         const response = request.response;
         const obj = response['photos'];
         const randPhoto = obj[Math.floor(Math.random() * Object.keys(obj).length)];
-        const src = randPhoto['img_src'].split('.jpl').join('');
+        const src = randPhoto['img_src'].split('.jpl').join(''); //link with .jpl in it does not work
         addMars(randPhoto['rover']['name'], src);
     }
 }
@@ -43,23 +43,27 @@ const picOfTheDay = date => {
 
 }
 
-const callAPI = () => {
-    const randDay = Math.floor(Math.random() * 2667);
-    marsWeather(randDay);
-    marsPhoto(randDay);
-}
-
+//Adds title and weather data to the DOM
 const addTitleWeather = (sol, date, min, max) => {
     document.getElementById('title').innerHTML = `Sol: ${sol} (${date})`;
     document.getElementById('weather').innerHTML = `Max. temperature: ${max}°C, Min. temperature: ${min}°C`;
 }
 
+//Adds random Mars photo to the DOM
 const addMars = (rover, src) => {
     document.getElementById('mars-photo').innerHTML = `Random photo of the day, by ${rover}.<img src='${src}'>`;
 }
 
+//Adds NASA photo of the dat to the DOM
 const addNASA = src => {
     document.getElementById('nasa-photo').innerHTML = `NASA photo of the day:<img src='${src}'>`;
+}
+
+//Calls marsWeather and marsPhoto with the same Sol
+const callAPI = () => {
+    const randDay = Math.floor(Math.random() * 2667);
+    marsWeather(randDay);
+    marsPhoto(randDay);
 }
 
 callAPI();
