@@ -1,4 +1,4 @@
-//Returns a random photo URL from NASA Mars Rover Photos API
+//Returns photo URL from NASA Mars Rover Photos API
 const marsPhoto = sol => {
     const request = new XMLHttpRequest();
     const requestURL = `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${sol}&api_key=fdQxe7OGPA0uiJdQ1f8upc2o1YOsvZYzKuhFBL0t`;
@@ -15,6 +15,7 @@ const marsPhoto = sol => {
     }
 }
 
+//Returns weather data Curiosity Rover on Mars
 const marsWeather = sol => {
     const request = new XMLHttpRequest();
     const requestURL = `https://api.maas2.apollorion.com/${sol}`;
@@ -26,14 +27,29 @@ const marsWeather = sol => {
         const marsDate = response['terrestrial_date'].split('T')[0];
         const res = `Sol: ${response['sol']} (${marsDate}), Max. temperature: ${response['max_gts_temp']}°C, Min. temperature: ${response['min_gts_temp']}°C.`
         console.log(res);
+        picOfTheDay(marsDate);
     }
+}
+
+//Returns NASA picture of the day
+const picOfTheDay = date => {
+    const request = new XMLHttpRequest();
+    const requestURL = `https://api.nasa.gov/planetary/apod?date=${date}&api_key=fdQxe7OGPA0uiJdQ1f8upc2o1YOsvZYzKuhFBL0t`;
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = () => {
+        const response = request.response;
+        const res = `NASA picture of the day: ${response['url']}.`
+        console.log(res);
+    }
+
 }
 
 const callAPI = () => {
     const randDay = Math.floor(Math.random() * 2667);
     marsWeather(randDay);
     marsPhoto(randDay);
-
 }
 
 callAPI();
