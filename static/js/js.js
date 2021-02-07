@@ -25,8 +25,7 @@ const marsWeather = sol => {
     request.onload = () => {
         const response = request.response;
         const marsDate = response['terrestrial_date'].split('T')[0];
-        const res = `Sol: ${response['sol']} (${marsDate}), Max. temperature: ${response['max_gts_temp']}°C, Min. temperature: ${response['min_gts_temp']}°C.`
-        console.log(res);
+        addTitleWeather(response['sol'], marsDate, response['min_gts_temp'], response['max_gts_temp']);
         picOfTheDay(marsDate);
     }
 }
@@ -50,6 +49,11 @@ const callAPI = () => {
     const randDay = Math.floor(Math.random() * 2667);
     marsWeather(randDay);
     marsPhoto(randDay);
+}
+
+const addTitleWeather = (sol, date, min, max) => {
+    document.getElementById('title').innerHTML = `Sol: ${sol} (${date})`;
+    document.getElementById('weather').innerHTML = `Max. temperature: ${max}°C, Min. temperature: ${min}°C`;
 }
 
 callAPI();
