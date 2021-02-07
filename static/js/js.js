@@ -9,9 +9,8 @@ const marsPhoto = sol => {
         const response = request.response;
         const obj = response['photos'];
         const randPhoto = obj[Math.floor(Math.random() * Object.keys(obj).length)];
-        const res = `Sol: ${randPhoto['sol']} (${randPhoto['earth_date']}), by ${randPhoto['rover']['name']}.`;
-        console.log(res);
-        console.log(randPhoto['img_src']);
+        const src = randPhoto['img_src'].split('.jpl').join('');
+        addMars(randPhoto['rover']['name'], src);
     }
 }
 
@@ -39,8 +38,7 @@ const picOfTheDay = date => {
     request.send();
     request.onload = () => {
         const response = request.response;
-        const res = `NASA picture of the day: ${response['url']}.`
-        console.log(res);
+        addNASA(response['url']);
     }
 
 }
@@ -54,6 +52,14 @@ const callAPI = () => {
 const addTitleWeather = (sol, date, min, max) => {
     document.getElementById('title').innerHTML = `Sol: ${sol} (${date})`;
     document.getElementById('weather').innerHTML = `Max. temperature: ${max}°C, Min. temperature: ${min}°C`;
+}
+
+const addMars = (rover, src) => {
+    document.getElementById('mars-photo').innerHTML = `Random photo of the day, by ${rover}.<img src='${src}'>`;
+}
+
+const addNASA = src => {
+    document.getElementById('nasa-photo').innerHTML = `NASA photo of the day:<img src='${src}'>`;
 }
 
 callAPI();

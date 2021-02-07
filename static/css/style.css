@@ -57,7 +57,7 @@ html, body, .container {
 
 .container {
 	max-width: 1500px;
-	margin: 0px auto 0px auto;
+	margin: 20px auto 0px auto;
 	display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: 0.01fr 0.01fr auto;
@@ -77,18 +77,29 @@ html, body, .container {
     grid-area: w;
     font-size: 40px;
     text-align: center;
+    padding: 20px;
 }
 
 #mars-photo {
     grid-area: m;
-    font-size: 2vw;
-    padding-top: 20px;
-    max-width: 30%;
+    padding-right: 10px;
 }
 
 #nasa-photo {
     grid-area: n;
-    font-size: 2vw;
+    padding-left: 10px;
+}
+
+#mars-photo, #nasa-photo {
+    display: flex;
+    flex-direction: column;
+    font-size: 30px;
     padding-top: 20px;
-    max-width: 30%;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    padding-top: 20px;
+    align-self: center;
 }
